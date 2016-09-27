@@ -1,0 +1,41 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+                    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd     
+                    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<mvc:annotation-driven />
+	
+	<context:component-scan base-package="com.moda.search.service" />
+	
+	<context:annotation-config />
+	
+	<bean id="cassandra"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+			<props>
+				<prop key="analytics.cassandra.cluster">${analytics.cassandra.cluster}</prop>
+				<prop key="analytics.cassandra.seeds">${analytics.cassandra.seeds}</prop>
+				<prop key="analytics.cassandra.keyspace">${analytics.cassandra.keyspace}</prop>
+				<prop key="analytics.cassandra.datacenter">${analytics.cassandra.datacenter}</prop>
+			</props>
+		</property>
+	</bean>
+ 
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>file:${v2ReadApiConfigSettings}</value>
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>
+	
+	<bean name="cassandraClient" class="com.moda.search.datasource.infra.CassandraClient" />
+	
+</beans>
