@@ -10,7 +10,7 @@ This is the basic version of moda-search project.
 ## tomcat configuration
 1. Open ~/tomcat/conf/context.xml
 2. Add below line inside the Context bean.
-* <Environment name="ConfigSettings" value="<PREFERRED_LOCATION>/config.properties" type="java.lang.String" override="false" /> *
+* Environment name="ConfigSettings" value="<PREFERRED_LOCATION>/config.properties" type="java.lang.String" override="false" *
  
 Note : "ConfigSettings" is the constant. It should not be changed.
 
