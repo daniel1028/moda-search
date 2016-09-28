@@ -17,8 +17,8 @@ dependencies {
 	compile group: 'org.springframework', name: 'spring-webmvc', version: '4.3.3.RELEASE'
 	compile 'javax.servlet:jstl:1.2'
 	compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0-b01'
-	
-	
+	compile group: 'org.elasticsearch', name: 'elasticsearch', version: '2.4.0'
+		
 }
 
 

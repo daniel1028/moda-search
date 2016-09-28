@@ -25,6 +25,16 @@ xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springf
 			</props>
 		</property>
 	</bean>
+	
+	<bean id="elasticsearch"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+			<props>
+				<prop key="search.elasticsearch.cluster">${search.elasticsearch.cluster}</prop>
+				<prop key="search.elasticsearch.ip">${search.elasticsearch.ip}</prop>
+			</props>
+		</property>
+	</bean>
  
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -37,5 +47,5 @@ xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springf
 	</bean>
 	
 	<bean name="cassandraClient" class="com.moda.search.datasource.infra.CassandraClient" />
-	
+	<bean name="elasticsearchClusterClient" class="com.moda.search.datasource.infra.ElasticsearchClusterClient" />
 </beans>

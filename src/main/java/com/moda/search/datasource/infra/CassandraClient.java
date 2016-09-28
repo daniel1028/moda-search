@@ -25,7 +25,7 @@ public final class CassandraClient {
   }
 
   @PostConstruct
-  public void initialize() {
+  public void initializeComponent() {
     
     LOG.info("Loading properties");
 
@@ -38,7 +38,7 @@ public final class CassandraClient {
   }
   
   @PreDestroy
-  public void finalize(){
+  public void finalizeComponent(){
     LOG.info("Closing connections....");
   }
 }
