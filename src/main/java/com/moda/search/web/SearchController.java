@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.moda.search.service.SearchService;
 
 @Controller
-public class SearchController {
+public class SearchController extends BaseController{
 
 	private final Logger logger = LoggerFactory.getLogger(SearchController.class);
 	private final SearchService helloWorldService;
@@ -47,6 +47,13 @@ public class SearchController {
 		model.addObject("msg", helloWorldService.getDesc());
 		
 		return model;
+
+	}
+
+	@RequestMapping(value = "/ajay", method = RequestMethod.GET)
+	public ModelAndView ajay() {
+		String val = helloWorldService.getName("daniel");
+		return getModel(val);
 
 	}
 
