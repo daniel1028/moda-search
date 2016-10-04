@@ -19,33 +19,27 @@ import com.moda.search.repository.SearchRepo;
 @Service
 public class SearchServiceImpl implements SearchService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SearchService.class);
-	private final Gson gson = new Gson();
-	@Autowired
-	private SearchRepo searchRepo;
+  private static final Logger LOG = LoggerFactory.getLogger(SearchService.class);
+  private final Gson gson = new Gson();
+  
+  @Autowired
+  private SearchRepo searchRepo;
 
-	
-	@Override
-	public String getName(String name){
-		return searchRepo.getName(name);
-	}
-	@Override
-	public String indexEmployee(String data) throws IOException{
-		Employee employeeObject = gson.fromJson(data, Employee.class);
-		
-		
-		if(employeeObject.getId() == null){
-			employeeObject.setId(UUID.randomUUID().toString());
-		}
-		XContentBuilder builder = jsonBuilder()
-			    .startObject()
-			        .field(Constants.ID, employeeObject.getId())
-			        .field(Constants.USER,employeeObject.getName())
-			        .field(Constants.ROLE, employeeObject.getRole())
-			        .field(Constants.SALARY,employeeObject.getSalary())
-			        .endObject();
-		return searchRepo.indexEmployee(builder,employeeObject.getId());
-	}
+  @Override
+  public String getEmployee(String name) {
+    return searchRepo.getEmployee(name);
+  }
 
+  @Override
+  public String indexEmployee(String empInfo) throws IOException {
+    Employee empObj = gson.fromJson(empInfo, Employee.class);
+
+    if (empObj.getId() == null) {
+      empObj.setId(UUID.randomUUID().toString());
+    }
+    XContentBuilder empObjBuilder = jsonBuilder().startObject().field(Constants.ID, empObj.getId()).field(Constants.USER, empObj.getName())
+            .field(Constants.ROLE, empObj.getRole()).field(Constants.SALARY, empObj.getSalary()).endObject();
+    return searchRepo.indexEmployee(empObjBuilder, empObj.getId());
+  }
 
 }

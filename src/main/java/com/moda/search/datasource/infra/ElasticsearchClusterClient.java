@@ -1,4 +1,5 @@
 package com.moda.search.datasource.infra;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Properties;
@@ -34,7 +35,7 @@ public class ElasticsearchClusterClient {
 
   @PostConstruct
   public void initializeComponent() {
-    
+
     searchElsCluster = elasticsearch.getProperty("search.elasticsearch.cluster");
     searchElsHost = elasticsearch.getProperty("search.elasticsearch.ip");
 

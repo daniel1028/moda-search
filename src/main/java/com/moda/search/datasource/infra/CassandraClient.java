@@ -26,7 +26,7 @@ public final class CassandraClient {
 
   @PostConstruct
   public void initializeComponent() {
-    
+
     LOG.info("Loading properties");
 
     String hosts = cassandra.getProperty("analytics.cassandra.seeds");
@@ -36,9 +36,9 @@ public final class CassandraClient {
     LOG.info("hosts:" + hosts);
     LOG.info("clusterName:" + clusterName);
   }
-  
+
   @PreDestroy
-  public void finalizeComponent(){
+  public void finalizeComponent() {
     LOG.info("Closing connections....");
   }
 }

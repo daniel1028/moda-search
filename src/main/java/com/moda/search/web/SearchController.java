@@ -12,38 +12,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.moda.search.constants.Constants;
 import com.moda.search.service.SearchService;
 
 @Controller
 @RequestMapping("/search/")
-public class SearchController extends BaseController{
+public class SearchController extends BaseController {
 
-	private final Logger LOG = LoggerFactory.getLogger(SearchController.class);
-	@Autowired
-	private  SearchService searchService;
-	
+  private final Logger LOG = LoggerFactory.getLogger(SearchController.class);
+  @Autowired
+  private SearchService searchService;
 
-	@RequestMapping(value = "/employee/{id:.+}", method = RequestMethod.GET)
-	public ModelAndView getEmployeeDetails(@PathVariable("id") String id) {
-		LOG.debug("search is executed - for Query :", id);
-		String val = searchService.getName(id);
-		LOG.debug("search response :", val);
-		return getModel(val);
+  @RequestMapping(value = "/employee/{id:.+}", method = RequestMethod.GET)
+  public ModelAndView getEmployeeDetails(@PathVariable(Constants.ID) String id) {
+    String val = searchService.getEmployee(id);
+    return responseBuilder(val);
+  }
 
-	}
-
-	@RequestMapping(value = "/index/employee", method = RequestMethod.POST)
-	public ModelAndView indexEmployeeDetails(@RequestBody String data) throws IOException {
-		LOG.debug("search is executed - for Query :", data);
-		
-		String result = searchService.indexEmployee(data);
-		LOG.debug("Succesfully created :", result);
-		return getModel("Indices Sucessfully created ");
-
-	}
-
-	
-
-	
+  @RequestMapping(value = "/index/employee", method = RequestMethod.POST)
+  public ModelAndView indexEmployeeDetails(@RequestBody String data) throws IOException {
+    String result = searchService.indexEmployee(data);
+    return responseBuilder(result);
+  }
 
 }
