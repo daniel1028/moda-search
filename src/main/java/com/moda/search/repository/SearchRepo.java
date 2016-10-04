@@ -8,5 +8,5 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 
 public interface SearchRepo {
 	public String getName(String name);
-	String postEmpl(XContentBuilder employee, String docId) throws IOException;
+	String indexEmployee(XContentBuilder employee, String docId) throws IOException;
 }

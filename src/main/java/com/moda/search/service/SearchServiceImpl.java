@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.util.UUID;
 
 import org.elasticsearch.common.xcontent.XContentBuilder;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.moda.search.constants.Constants;
 import com.moda.search.models.Employee;
 import com.moda.search.repository.SearchRepo;
 
@@ -30,7 +30,7 @@ public class SearchServiceImpl implements SearchService {
 		return searchRepo.getName(name);
 	}
 	@Override
-	public String postEmpl(String data) throws IOException{
+	public String indexEmployee(String data) throws IOException{
 		Employee employeeObject = gson.fromJson(data, Employee.class);
 		
 		
@@ -39,12 +39,12 @@ public class SearchServiceImpl implements SearchService {
 		}
 		XContentBuilder builder = jsonBuilder()
 			    .startObject()
-			        .field("id", employeeObject.getId())
-			        .field("user",employeeObject.getName())
-			        .field("role", employeeObject.getRole())
-			        .field("salary",employeeObject.getSalary())
+			        .field(Constants.ID, employeeObject.getId())
+			        .field(Constants.USER,employeeObject.getName())
+			        .field(Constants.ROLE, employeeObject.getRole())
+			        .field(Constants.SALARY,employeeObject.getSalary())
 			        .endObject();
-		return searchRepo.postEmpl(builder,employeeObject.getId());
+		return searchRepo.indexEmployee(builder,employeeObject.getId());
 	}
 
 

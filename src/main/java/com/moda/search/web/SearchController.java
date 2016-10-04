@@ -24,7 +24,7 @@ public class SearchController extends BaseController{
 	
 
 	@RequestMapping(value = "/employee/{id:.+}", method = RequestMethod.GET)
-	public ModelAndView getEmpoloyeeDetails(@PathVariable("id") String id) {
+	public ModelAndView getEmployeeDetails(@PathVariable("id") String id) {
 		LOG.debug("search is executed - for Query :", id);
 		String val = searchService.getName(id);
 		LOG.debug("search response :", val);
@@ -33,10 +33,10 @@ public class SearchController extends BaseController{
 	}
 
 	@RequestMapping(value = "/index/employee", method = RequestMethod.POST)
-	public ModelAndView postemployee(@RequestBody String data) throws IOException {
+	public ModelAndView indexEmployeeDetails(@RequestBody String data) throws IOException {
 		LOG.debug("search is executed - for Query :", data);
 		
-		String result = searchService.postEmpl(data);
+		String result = searchService.indexEmployee(data);
 		LOG.debug("Succesfully created :", result);
 		return getModel("Indices Sucessfully created ");
 
