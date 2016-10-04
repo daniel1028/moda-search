@@ -1,5 +1,4 @@
 package com.moda.search.datasource.infra;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Properties;
@@ -55,6 +54,7 @@ public class ElasticsearchClusterClient {
 
   public Client getElsClient() {
     return client;
+
   }
 
   @PreDestroy

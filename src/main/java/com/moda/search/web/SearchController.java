@@ -1,12 +1,13 @@
 package com.moda.search.web;
 
-import java.util.Map;
+import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,47 +15,35 @@ import org.springframework.web.servlet.ModelAndView;
 import com.moda.search.service.SearchService;
 
 @Controller
+@RequestMapping("/search/")
 public class SearchController extends BaseController{
 
-	private final Logger logger = LoggerFactory.getLogger(SearchController.class);
-	private final SearchService helloWorldService;
-
+	private final Logger LOG = LoggerFactory.getLogger(SearchController.class);
 	@Autowired
-	public SearchController(SearchService helloWorldService) {
-		this.helloWorldService = helloWorldService;
-	}
+	private  SearchService searchService;
+	
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(Map<String, Object> model) {
-
-		logger.debug("index() is executed!");
-
-		model.put("title", helloWorldService.getTitle(""));
-		model.put("msg", helloWorldService.getDesc());
-		
-		return "index";
-	}
-
-	@RequestMapping(value = "/hello/{name:.+}", method = RequestMethod.GET)
-	public ModelAndView hello(@PathVariable("name") String name) {
-
-		logger.debug("hello() is executed - $name {}", name);
-
-		ModelAndView model = new ModelAndView();
-		model.setViewName("index");
-		
-		model.addObject("title", helloWorldService.getTitle(name));
-		model.addObject("msg", helloWorldService.getDesc());
-		
-		return model;
-
-	}
-
-	@RequestMapping(value = "/ajay", method = RequestMethod.GET)
-	public ModelAndView ajay() {
-		String val = helloWorldService.getName("daniel");
+	@RequestMapping(value = "/employee/{id:.+}", method = RequestMethod.GET)
+	public ModelAndView getEmpoloyeeDetails(@PathVariable("id") String id) {
+		LOG.debug("search is executed - for Query :", id);
+		String val = searchService.getName(id);
+		LOG.debug("search response :", val);
 		return getModel(val);
 
 	}
+
+	@RequestMapping(value = "/index/employee", method = RequestMethod.POST)
+	public ModelAndView postemployee(@RequestBody String data) throws IOException {
+		LOG.debug("search is executed - for Query :", data);
+		
+		String result = searchService.postEmpl(data);
+		LOG.debug("Succesfully created :", result);
+		return getModel("Indices Sucessfully created ");
+
+	}
+
+	
+
+	
 
 }
